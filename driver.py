@@ -36,19 +36,19 @@ def crawl(path, pathsVisited, ziteAllPathsFile, zitePathFile):
                 #else:
                     #print "---- already visited"
 
-        if len(pathsVisited) < MAX_PATHS:
-            if len(paths.SlashPaths) > 0:
-                print "SlashPaths found: " + str(len(paths.SlashPaths))
-            for link in paths.SlashPaths:
-                if link not in pathsVisited:
-                    print " > " + link
-                    print "Paths Visited: " + str(len(pathsVisited)) + "/" + str(MAX_PATHS)
-                    if len(pathsVisited) < MAX_PATHS:
-                        zitePathFile.write(link.decode('UTF-8')+u"\n")
-                        pathsVisited.add(link)
-                        crawl(link, pathsVisited, ziteAllPathsFile, ziteAllPathsFile)
-        else:
-            print "Max Paths Reached! " + str(len(pathsVisited))
+            if len(pathsVisited) < MAX_PATHS:
+                if len(paths.SlashPaths) > 0:
+                    print "SlashPaths found: " + str(len(paths.SlashPaths))
+                for link in paths.SlashPaths:
+                    if link not in pathsVisited:
+                        print " > " + link
+                        print "Paths Visited: " + str(len(pathsVisited)) + "/" + str(MAX_PATHS)
+                        if len(pathsVisited) < MAX_PATHS:
+                            zitePathFile.write(link.decode('UTF-8')+u"\n")
+                            pathsVisited.add(link)
+                            crawl(link, pathsVisited, ziteAllPathsFile, ziteAllPathsFile)
+            else:
+                print "Max Paths Reached! " + str(len(pathsVisited))
     return urlsVisited
 
 if __name__ == "__main__":
