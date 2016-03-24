@@ -1,3 +1,6 @@
+# Provides main driver code for the zite crawler.
+
+
 import krawler
 import sys
 from Queue import Queue

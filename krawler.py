@@ -1,3 +1,10 @@
+"""
+Utility methods used in the Krawler.
+Please Note: In order for this to work, all libraries must be installed,
+and you must have PhantomJS Installer, and the path configured below.
+All libraries can be installed using pip
+"""
+
 from bs4 import BeautifulSoup
 import urllib2
 import string
