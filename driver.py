@@ -10,29 +10,33 @@ from selenium import webdriver
 
 
 MAX_PATHS = 50 #Max new paths to branch to
+MAX_URLS  = 350
 ZITE_PATH_FILE = "Paths.dat"
 ZITE_ALL_PATHS_FILE = "AllPaths.dat"
 MAX_THREADS = 10
 urlsVisited = Set()
 pathsVisited = Set()
+urlsInQueue = Set()
 
 def crawl(path, pathsVisited, ziteAllPathsFile, zitePathFile):
     print krawler.BASE_URL + path
     urlsToVisit = Queue()
     urlsToVisit.put(path)
-    while not urlsToVisit.empty():
+    while not urlsToVisit.empty() and len(urlsVisited) < MAX_URLS:
         url = urlsToVisit.get()
         if url not in urlsVisited:
             urlsVisited.add(url)
+            ziteAllPathsFile.write(url.encode('UTF-8') + u"\n")
             print "URLs Visited: " + str(len(urlsVisited))
             #print "Visiting: " + url
             paths = krawler.getPathsStruct(url)
             for link in paths.OtherPaths:
                 #print "--" + link
                 p = path+"/"+link
-                if p not in urlsVisited:
-                    ziteAllPathsFile.write(p.decode('UTF-8') + u"\n")
+                if p not in urlsInQueue:
+                    urlsInQueue.add(p)
                     urlsToVisit.put(p)
+                    
                 #else:
                     #print "---- already visited"
 
@@ -44,7 +48,7 @@ def crawl(path, pathsVisited, ziteAllPathsFile, zitePathFile):
                         print " > " + link
                         print "Paths Visited: " + str(len(pathsVisited)) + "/" + str(MAX_PATHS)
                         if len(pathsVisited) < MAX_PATHS:
-                            zitePathFile.write(link.decode('UTF-8')+u"\n")
+                            zitePathFile.write(link.encode('UTF-8')+u"\n")
                             pathsVisited.add(link)
                             crawl(link, pathsVisited, ziteAllPathsFile, ziteAllPathsFile)
             else:
