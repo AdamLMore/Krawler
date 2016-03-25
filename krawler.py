@@ -39,6 +39,7 @@ def phantomResolve(url):
         
     time.sleep(0.4) 
     content = browser.page_source
+    browser.close()
     return content 
 
 def resolveURL(path):

@@ -8,9 +8,11 @@ from Queue import Queue
 from sets import Set
 from selenium import webdriver
 
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
-MAX_PATHS = 50 #Max new paths to branch to
-MAX_URLS  = 350#Max URLs to visit
+MAX_PATHS = 1000  #Max new paths to branch to
+MAX_URLS  = 6000 #Max URLs to visit
 ZITE_PATH_FILE = "Paths.dat"
 ZITE_ALL_PATHS_FILE = "AllPaths.dat"
 MAX_THREADS = 10
