@@ -15,6 +15,8 @@ from selenium import webdriver
 
 BASE_URL = "http://127.0.0.1:43110"
 PHANTOMJS_PATH = "/home/adam/phantomjs/bin/phantomjs"
+browser = webdriver.PhantomJS(executable_path=PHANTOMJS_PATH, service_log_path=os.path.devnull)
+browser.set_window_size(1400, 1000)
 
 class PathsStruct:
     HTTPPaths = Queue.Queue()
@@ -26,8 +28,6 @@ class PathsStruct:
         self.OtherPaths = OtherPaths
 
 def phantomResolve(url):
-    browser = webdriver.PhantomJS(executable_path=PHANTOMJS_PATH, service_log_path=os.path.devnull)
-    browser.set_window_size(1400, 1000)
     #url = resolveURL(url)
     browser.get(BASE_URL + url)
     content = browser.page_source
@@ -35,11 +35,8 @@ def phantomResolve(url):
         browser.switch_to.frame(browser.find_element_by_id("inner-iframe"))
     except:
         return content
-
-        
     time.sleep(0.4) 
     content = browser.page_source
-    browser.quit()
     return content 
 
 def resolveURL(path):
